@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "463178975903",
+    "project_id": "foundit-4b1d6",
+    "storage_bucket": "foundit-4b1d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463178975903:android:48dc72a0f8d2c2ada6f0aa",
+        "android_client_info": {
+          "package_name": "com.example.foundit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463178975903-2vjt8v0v8dbtg0df5d7f6vg3pv4m5d8b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foundit",
+            "certificate_hash": "144963128504f8e1f1ed5e2089c488df1b599b59"
+          }
+        },
+        {
+          "client_id": "463178975903-3u9hgc1cs3sq362amgm6ju227j483n3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcuWk6XGgVvfbp227rsfXZvErOmBbsHQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463178975903-3u9hgc1cs3sq362amgm6ju227j483n3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
