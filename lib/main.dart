@@ -11,11 +11,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: 'AIzaSyAdqxz5L9jvf-XWdgzi2H59_aJbsUzOgGY',
-      appId: '1:463178975903:android:48dc72a0f8d2c2ada6f0aa',
-      messagingSenderId: '463178975903',
-      projectId: 'foundit-4b1d6',
-      storageBucket: 'foundit-4b1d6.appspot.com',
+      apiKey: 'your Api key',
+      appId: 'your app id',
+      messagingSenderId: 'your messagingSenderId',
+      projectId: 'your projectId',
+      storageBucket: 'your storageBucket',
     ),
   );
   runApp(const MyApp());
