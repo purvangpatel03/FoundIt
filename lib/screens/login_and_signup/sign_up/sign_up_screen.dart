@@ -4,6 +4,7 @@ import 'package:foundit/firebase/firebase_helper.dart';
 import 'package:foundit/models/user_data.dart';
 import 'package:foundit/theme/colors.dart';
 import 'package:foundit/widgets/filled_button_widget.dart';
+import 'package:foundit/widgets/snack_bar_widget.dart';
 import 'package:foundit/widgets/text_widget.dart';
 import 'package:foundit/widgets/textformfield_widget.dart';
 
@@ -166,27 +167,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             email: emailController.text,
                             password: passwordController.text,
                           )
-                              .then((value) async {
-                            await FirebaseHelper().createUser(
-                              UserData(
-                                name: nameController.text,
-                                email: emailController.text,
-                                phoneNo: phoneController.text,
-                                uid: value.user!.uid,
-                              ),
-                            );
-                          });
+                              .then(
+                            (value) async {
+                              await FirebaseHelper().createUser(
+                                UserData(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  phoneNo: phoneController.text,
+                                  uid: value.user!.uid,
+                                ),
+                              );
+                            },
+                          );
+                          if(context.mounted){
+                            Navigator.pop(context);
+                          }
                         } on FirebaseException catch (e) {
-                          print(e.message);
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(MySnackBar().mySnackBar(
+                              text: e.message.toString(),
+                              context: context,
+                            ));
+                          }
                         }
                       }
                     },
                     text: 'Sign up',
-                      textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: ThemeColor.lightWhite,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: ThemeColor.lightWhite,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
                   const SizedBox(
                     height: 32,
                   ),

@@ -5,10 +5,11 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final String hintText;
-  final Icon? suffixIcon;
+  final Widget? suffixIcon;
   final int? maxLine;
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
+  final bool? obscureText;
 
   const TextFormFieldWidget({
     super.key,
@@ -19,6 +20,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.maxLine,
     this.keyboardType,
     this.onChanged,
+    this.obscureText,
   });
 
   @override
@@ -26,6 +28,7 @@ class TextFormFieldWidget extends StatelessWidget {
     return SizedBox(
       height: 50,
       child: TextFormField(
+        obscureText: obscureText ?? false,
         maxLines: maxLine,
         onChanged: onChanged,
         validator: validator,

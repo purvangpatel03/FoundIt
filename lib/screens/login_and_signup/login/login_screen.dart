@@ -9,6 +9,8 @@ import 'package:foundit/widgets/text_widget.dart';
 import 'package:foundit/widgets/textformfield_widget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../widgets/snack_bar_widget.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -20,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   @override
   void dispose() {
@@ -88,11 +91,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 8,
                   ),
                   TextFormFieldWidget(
+                    obscureText: _obscureText,
+                    maxLine: 1,
                     controller: passwordController,
-                    suffixIcon: const Icon(
-                      size: 20,
-                      color: Color(0xFFa5b4b8),
-                      Icons.visibility_off_outlined,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: const Icon(
+                        size: 20,
+                        color: Color(0xFFa5b4b8),
+                        Icons.visibility_off_outlined,
+                      ),
                     ),
                     hintText: 'Enter your password',
                     validator: (value) {
@@ -118,30 +130,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 16,
                   ),
                   FilledButtonWidget(
-                    text:'Log in',
-                    backgroundColor: ThemeColor.secondary,
-                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: ThemeColor.lightWhite,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        try {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-                        } on FirebaseException catch (e) {
-                          if (e.code == 'user-not-found') {
-
-                          } else if (e.code == 'wrong-password') {
-
+                      text: 'Log in',
+                      backgroundColor: ThemeColor.secondary,
+                      textStyle:
+                          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: ThemeColor.lightWhite,
+                                fontWeight: FontWeight.w600,
+                              ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          try {
+                            await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                          } on FirebaseException catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(MySnackBar().mySnackBar(
+                                text: e.message.toString(),
+                                context: context,
+                              ));
+                            }
                           }
                         }
-                      }
-                    },
-                  ),
+                      }),
                   const SizedBox(
                     height: 32,
                   ),
